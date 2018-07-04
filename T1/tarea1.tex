@@ -1,0 +1,187 @@
+\documentclass[letterpaper,10pt]{article}
+\setlength{\parindent}{0pt}
+\usepackage[utf8]{inputenc}
+
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage{enumerate}
+\usepackage{amssymb,amsmath}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usepackage[shortlabels]{enumitem}
+
+
+\begin{document}
+
+\small
+\textsc{Pontificia Universidad Católica de Chile}\\
+\textsc{Escuela de Ingeniería}\\
+\textsc{Departamento de Ciencia de la Computación}\\
+\textsc{Primer Semestre de 2018}
+
+\large
+\begin{center}
+\textbf{IIC2213 - Lógica para ciencia de la Computación}\\
+Tarea 1 - Raimundo Herrera (rjherrera@uc.cl)
+\end{center}
+
+\normalsize
+\textbf{Problema 1}
+
+\begin{enumerate}[a)]
+
+    \item Una $P$-extensión para $\varphi$ es la siguiente: $\psi = \varphi \wedge r$ o alternativamente $\psi = (p \rightarrow q) \wedge r$.
+    Lo que se requiere para que $\psi$ sea una $P$-extensión es que para toda valuación $\tau$ tal que  $\tau \models \varphi$, exista una valuacion $\tau^*$ tal que para toda proposición $p \in$ Var$(\varphi)$, se tenga que $\tau^*(p) = \tau(p)$ y $\tau^* \models \psi$.
+
+    Para probar que el $\psi$ propuesto cumple con lo anterior, basta construir $\tau^*$ a partir de cada $\tau$ que cumpliera lo anterior. Esto es, para cada $p \in$ Var$(\varphi)$, $\tau^*(p) = \tau(p)$ y adicionalmente se le agrega la valuación de $r$, de modo que sea 1. Dicho de otra manera, basta construir $\tau^*$ como: $\tau^*(p) = \tau(p)$, $\tau^*(q) = \tau(q)$ y $\tau^*(r) = 1$.
+
+    Como para todas las proposiciones $p \in$ Var$(\varphi)$, en este caso $p$ y $q$, se tiene que $\tau = \tau^*$, es inmediato que $\tau^* \models \varphi$. Por definición de $\models$, se tiene que para que $\tau^*$ satisfaga a $\varphi \wedge r$ se requiere que dicho $\tau^*$ satisfaga $(1)$ a $\varphi$ y $(2)$ a $r$. El caso de $(1)$ viene dado inmediatamente por lo recién explicado, y para $(2)$ es inmediato verlo ya que se construyo $\tau^*$ de modo que $\tau^*(r) = 1$, por lo que se concluye que $\tau^* \models \psi$.
+
+    Así se concluye que $\psi$ es una $P$-extensión válida ya que para cada valuación que satisface a $\varphi$ se puede construir una que satisfaga a $\psi$ y cumpla con lo pedido.\\
+
+    Por otro lado un $\psi$ que no es una $P$-extensión es el siguiente: $\psi = p$. Para mostrar que no lo es basta tomar una valuación $\tau \models \varphi$ donde no exista una valuación $\tau^*$ que cumpla lo pedido y satisfaga a $\psi$.
+
+    Considerando la valuación $\tau_1$ tal que $\tau_1(p) = 0$ y $\tau_1(q) = 1$, se tiene que evidentemente $\tau_1 \models \varphi$. Sin embargo, para que $\psi$ sea una $P$-extensión, debe existir un $\tau^*$ que cumpla que para toda proposición $p \in$ Var$(\varphi)$ se tenga que $\tau^*(p)=\tau_1(p)$, y en caso de darse eso, tendría que ocurrir que $\tau^*(p) = 0$ ya que $\tau_1(p) = 0$, lo que \textit{nunca} podrá satisfacer a $\psi$ ya que requiere que $\tau^*(p)$ sea 1.
+
+    \item Por definición de consecuencia lógica, se tiene que $\varphi \models \psi$ si y solo si para cada valuación $\tau$ tal que $\tau \models \varphi$ se tiene que $\tau \models \psi$.
+
+    Lo que se quiere probar es que si $\varphi \models \psi$, entonces $\psi$ es una $P$-extensión de $\varphi$. Para que ocurra se debe dar las condiciones pedidas en la definición de $P$-extensión. Si para cada valuación $\tau$ que satisface a $\varphi$, se define la valuación $\tau^*$ como esa misma, entonces ambas condiciones se cumplen inmediatamente. La primera se cumple ya que para cada proposición $p \in$ Var$(\varphi)$, como $\tau = \tau^*$, se tiene que $\tau(p) = \tau^*(p)$. La segunda se cumple también porque $\tau^*=\tau \models \psi$ por definición de consecuencia lógica.
+
+    Así, lo propuesto es cierto.
+
+    \item Por definición de consecuencia lógica, si $\varphi \models \psi$, todas las valuaciones que satisfacen a $\varphi$ deben satisfacer a $\psi$. Sin embargo, la noción de Var$(\varphi)$ hace que esto no necesariamente se cumpla ya que la definición de $P$-extensión restringe los valores de la valuación sobre los $p$ pertenecientes a dicho conjunto y no todos los $p\in P$.
+
+    Es por esto que si se toma una $P$-extensión cualquiera que considere además a proposiciones no pertenecientes a Var$(\varphi)$, como la dada en (a), se tiene que una valuación $\tau_2$ tal que $\tau_2 \models \varphi$ es aquella que $\tau_2(p) = 0$, $\tau_2(q) = 1$, $\tau_2(r) = 0$ y $\tau_2(s) = 0$. Así, si bien esa valuación satisface a $\varphi$, es claro que no satisface a un $\psi$ como el propuesto, que considere a $r$ o a $s$ en conjunción.
+
+    De este modo, se tiene que $\psi$ es una $P$-extensión de $\varphi$, pero $\varphi \not\models \psi$ ya que existe una valuación, en particular $\tau_2$ tal que $\tau_2 \models \varphi$ pero $\tau_2 \not\models \psi$.
+
+    Así, lo propuesto no es cierto.
+
+    \item La condición suficiente y necesaria para que $(\varphi \wedge \chi)$ sea una $P$-extensión, es que exista una valuación $\tau_\chi$ tal que $\tau_\chi \models \chi$.
+
+    Para mostrar que es suficiente, hay que mostrar que, para toda valuación $\tau_\varphi$ que satisfaga a $\varphi$, sea posible construir una valuación $\tau^*$ tal que para cada proposición $p \in$ Var$(\varphi)$ dicha valuación cumpla que $\tau^*(p) = \tau_\varphi(p)$, y además $\tau^* \models (\varphi \wedge \chi)$.
+
+    Así si se construye $\tau^*$ a partir de $\tau_\varphi$ y $\tau_\chi$, donde para cada $p \in$ Var$(\varphi)$, $\tau^*(p) = \tau_\varphi(p)$ y a su vez, para cada $p \in$ Var$(\chi)$, $\tau^*(p) = \tau_\chi(p)$. Se puede ver que eso no presenta problema alguno dado que la intersección de ambos Var es vacía.
+
+    Para ver que cumple con lo deseado, primero basta analizar que por la construcción de $\tau^*$, al ser igual para todos los elementos de Var$(\varphi)$, es claro que $\tau^*(p) = \tau_\varphi(p)$. Por otro lado, para ver que satisface a $(\varphi \wedge \chi)$, se puede considerar, por definición de consecuencia lógica, que se tiene que dar que tanto $\tau^* \models \varphi$ como $\tau^* \models \chi$. Ambos casos se cumplen, ya que como $\tau^*$ es idéntico a $\tau_\varphi$ en aquellas proposiciones involucradas en $\varphi$, entonces lo satisface, y análogamente, al ser idéntico a $\tau_\chi$ (que existe al ser la condición) en las proposiciones involucradas en $\chi$, entonces también lo satisface, teniendo que $\tau^* \models (\varphi \wedge \chi)$.
+
+    Finalmente para mostrar que dicha condición es necesaria, por contradicción, asumamos que no existe dicha valuación $\tau_\chi$ que la satisface y que $(\varphi \wedge \chi)$ es una $P$-extensión de $\varphi$. Si es una $P$-extensión, entonces para toda valuación $\tau_\varphi$ existe una valuación $\tau^*$ tal que $\tau^* \models (\varphi \wedge \chi)$. Así, nuevamente utilizando la definición de consecuencia lógica, se debe cumplir que $\tau^* \models \varphi$ y $\tau^* \models \chi$. Tomando la última afirmación, se tiene entonces que $\tau^* \models \chi$, pero habíamos asumido que no existía una valuación en la que sucediera eso, llegando a la contradicción.
+
+    Con esto, se concluye que la condición enunciada, esto es, que exista una valuación $\tau_\chi$ tal que $\tau_\chi \models \chi$, es necesaria y suficiente para que $(\varphi \wedge \chi)$ sea una $P$-extensión.
+
+\end{enumerate}
+
+
+\textbf{Problema 2}
+
+\begin{enumerate}[a)]
+
+    \item Para construir el grafo, se pueden tomar todas las clausulas presentes en $\Sigma$ y en la demostración por resolución como nodos del grafo, y luego armar una jerarquía que confluya hasta la raríz del $DAG$. Esa jerarquía se va conformando a medida que entre dos clausulas se realice resolución formando un $\psi_i$, y luego a medida que a partir de los distintos $\psi$ formados se vayan generando nuevos $\psi_j$, hasta llegar a la raíz.
+
+    De este modo, se puede definir un árbol, que es un caso particular de $DAG$, donde las hojas son las clausulas presentes en $\Sigma$, y donde se agregan, ordenadamente a partir de la demostración, padres en la medida en que a partir de dos clausulas $\psi_i$ y $\psi_j$ se haya formado por resolución otra clausula $\psi_k$ nueva, es decir no presente en $\Sigma$, y por consiguiente no una hoja del árbol. Esta construcción es equivalente a la presentada en el libro de Bertossi, llamada árbol de refutación. Sin embargo, es necesario añadir la dirección, donde se elegirá para este caso que cada padre apunte \textit{hacia} sus hijos de los cuales se dedujo.
+
+    Es fácil ver que todos los ancestros son deducidos a partir de aquellas clausulas de la que es ancestro, ya que por construcción, para llegar a un padre, este se formó a partir de hijos, y así sucesivamente.
+
+    Por inducción sobre el índice de las clausulas se tiene lo siguiente:
+
+    \textbf{CB:} Aquellas clausulas que son hojas del árbol. Se cumple trivialmente ya que no son ancestros de nadie.\\
+    \textbf{HI:} Para todos los $j \le n$, si $\psi_j$ es el ancestro de $\{\psi_{l1},...,\psi_{lk}\}$ entonces $\{\psi_{l1},...,\psi_{lk}\} \models \psi_j$.\\
+    \textbf{PD:} Si \textbf{HI}, entonces si $\psi_{n+1}$ es el ancestro de $\{\psi_{m1},...,\psi_{mk}\}$ entonces $\{\psi_{m1},...,\psi_{mk}\} \models \psi_{n+1}$.
+
+    Sabemos que $\psi_{n+1}$ se deduce a partir de dos clausulas, por lo que en el grafo estará ubicado como padre de ambas, y en particular, sean dichas formulas $\psi_r$ y $\psi_s$, se tiene que $\{\psi_r, \psi_s\} \models \psi_{n+1}$.
+
+    Como $r$ y $s$ son índices menores que $n+1$, sabemos que cumplen la hipótesis de inducción enunciada anteriormente, de modo que sus ancestros lo deducen. Así, si se toma el conjunto de todos los ancestros de $\psi_r$, y todos los de $\psi_s$, además de ambas clausulas, se tienen a todos los ancestros, y se sabe en particular que deducen a $\psi_{n+1}$, por la construcción del $DAG$.
+
+    Además, por transitividad de la relación ancestro, $\psi_{n+1}$ es también ancestro de todas las clausulas de las que tanto $\psi_s$ como $\psi_r$ son, por lo que si del conjunto descrito se deduce $\psi_{n+1}$, como dicho conjunto corresponde justamente a los ancestros, se cumple lo pedido.
+
+    \item Para mostrar lo pedido, es importante considerar lo asumido en el enunciado, esto es, que todas las proposiciones de $P$ están presentes en $\Sigma$, ya que en caso contrario se perdería la unicidad.
+
+    Para cada nodo del grafo, que no es una hoja, se tienen dos hijos, de los cuales se deduce el nodo. En resolución lo que se hace, sin considerar la factorización, es "obviar" el elemento en comun que esté negado en ambas clausulas de las que se está aplicando resolución, esto es, si se tiene una clausula de la forma $\psi_a = p \vee q \vee ... r ... \vee s $ y $\psi_b = t \vee u \vee ... \neg r ... \vee v $, entonces al tener $r$ y $\neg r$, esta se elimina, y la resolución de ambas clausulas es $\psi_c = p \vee q \vee ... \vee s \vee t \vee u \vee ... \vee v $.
+
+    Ahora, dado lo anterior, si $\tau \not\models \psi_c$, se tiene que la valuación para todas las proposiciones mencionadas en ambas clausulas, menos $r$, tiene que ser 0, ya que $\psi_c$ se compone de disyunciones. De este modo, la única "libertad" de acción que queda por determinar es la de $r$, ya que esta no está mencionada en $\psi_c$. Por lo tanto, en el caso en que la valuación se haga 0, nos iremos por el lado del árbol en que la proposición estaba en forma negada, en este caso el hijo $\psi_b$, y en caso contrario por el otro hijo.
+
+    El hecho anteriorr sirve para argumentar la unicidad de la solución, ya que cada valuación para cada proposición otorga un camino diferente, porque si se elige una valuación, el camino seguirá o bien la rama o arista en la cual no se cumpla la consecuencia lógica, o bien la que sí, de este modo, variar la valuación varía el camino.
+
+    Ese método muestra una forma de, desde la raíz, elegir siempre el camino en el que $\tau \not\models \psi_i$, y como todas las proposiciones están mencionadas en $\Sigma$, se tiene que habrá una resolución que haya salido de eliminar dicha proposición, y elegir el hijo negado, llevará a construir camino pedido, hasta llegar a una hoja.
+
+
+\end{enumerate}
+
+
+
+\textbf{Problema 3}\\
+
+La fórmula a discutir es tal que para toda valuacion $\tau$ se tenga que $\tau \models \varphi$ ssi la cantidad de proposiciones donde $\tau(p) = 1$ es finita.
+
+La intuición de porque no es posible construir dicha fórmula viene del hecho de que la definición de fórmula requiere una cantidad finita de proposiciones. Esto implica que, el control que va a tener la fórmula sobre las preposiciones de $P$, es limitado, ya que $P$ es infinito.
+
+%La noción $\tau \models \varphi$ dice que para cada proposición afirmativa $p$ presente en $\varphi$, $\tau(p) = 1$, y negada lo contrario.
+
+Si se pudiera construir dicha fórmula, entonces se tendría que dar que $\tau \not\models \varphi$ cuando la cantidad de proposiciones $p$ en las que $\tau(p)=1$ es infinita, si eso ocurre, la fórmula tendría que ser capaz de contar. Solo tiene control sobre qué proposiciones van negadas o afirmadas dentro de la fórmula, no sobre la cantidad de ellas, y se tendría que extender la definición de fórmula en lógica proposicional.
+
+Una formula finita, no puede evaluar afirmativamente unicamente si la valuación (que es infinita porque $P$ lo es) tiene una cantidad finita o no de elementos valuados positivos o negativos, ya que no puede considerar a todas las proposiciones dentro de si misma, por lo que no tiene control de cuando la cantidad de valuaciones positivas es infinita, ya que si lo tuviera, tendría que ser infinita, o poder contar, ambas cosas no consideradas en la construcción de fórmulas en $LP$.
+\\\\
+
+\textbf{Problema 4}
+
+\begin{enumerate}[a)]
+\item Para construir el conjunto de proposiciones $P$ se plantea que las casas tienen un índice que determina su posición, el 1 corresponde a la primera y el 5 a la última. Además, las proposiciones se escriben respecto a la nacionalidad del habitante de la casa, donde las demás realidades derivan de lo anterior, así, se tiene lo siguiente:
+
+* Consideremos para todos los casos que: nacionalidad $\in \{$ británico, sueco, danés, alemán, noruego$\}$, y llamemos a ese conjunto \texttt{nacs}. Y que los ejemplos no constituyen las pistas, porque les falta la completitud de las opciones, como sí se mostrará cuando se muestren las pistas.
+
+\begin{enumerate}[i.]
+    \item Posición: $P_\text{nacionalidad}^n$, donde $n\in\{1,2,3,4,5\}$.
+    Ejemplo: El Noruego vive en la primera casa equivale a $P_\text{noruego}^1$.
+
+    \item Color: $C_\text{nacionalidad}^\text{color}$, donde color $\in \{$ verde, blanco, amarillo, azul, rojo$\}$.
+    Ejemplo: El Británico vive en una casa roja equivale a $C_\text{británico}^\text{rojo}$.
+
+    \item Bebestible: $B_\text{nacionalidad}^\text{bebestible}$, donde bebestible $\in \{$ cerveza, agua, té, café, leche$\}$.
+    Ejemplo: El Danés toma té todo el día equivale a $B_\text{danés}^\text{té}$.
+
+    \item Mascota: $M_\text{nacionalidad}^\text{mascota}$, donde mascota $\in \{$ perro, gato, caballo, pájaro, pez$\}$.
+    Ejemplo: El Sueco tiene un perro equivale a $M_\text{sueco}^\text{perro}$.
+
+    \item Tabaco: $T_\text{nacionalidad}^\text{tabaco}$, donde tabaco $\in \{$ Dunhill, Pall Mall, Blue Master, Prince, Blends$\}$.
+    Ejemplo: El Alemán fuma Prince equivale a $T_\text{alemán}^\text{Prince}$.
+\end{enumerate}
+
+Además, en $\Sigma$ deben estar presentes las fórmulas que restringen las características de dicho mundo, esto es, que cada una de las cualidades descritas se presentan una única vez en una única casa, por lo que no hay repetidos, ni hay características que no se den, como por ejemplo que nadie fuera dueño de un caballo.
+
+Ahora, estas son las pistas con asterísco modeladas según la forma anterior:
+
+\begin{enumerate}[i.]
+    \item El Británico vive en una casa roja:
+    $$\bigvee_{i=1}^5 P_\text{británico}^i \wedge C_\text{británico}^\text{rojo}$$
+
+    \item La casa verde esta justo antes de la casa blanca:
+    $$\bigvee_{(na\neq nb)\ \in \texttt{ nacs}^2 \ } \bigvee_{i=1}^4 (P_{na}^i \wedge C_{na}^\text{verde}) \wedge (P_{nb}^{i+1} \wedge C_{nb}^\text{blanca})$$
+
+    \item El dueño de la casa verde toma café todo el día:
+    $$\bigvee_{n\ \in \texttt{ nacs} \ } \bigvee_{i=1}^5 P_{n}^i \wedge C_{n}^\text{verde} \wedge B_{n}^\text{café} $$
+
+    \item El dueño de la casa de al medio toma leche todo el día:
+    $$\bigvee_{n\ \in \texttt{ nacs} \ } P_{n}^3 \wedge B_{n}^\text{leche} $$
+
+    \item La persona que tiene un caballo vive al lado de la persona que fuma Dunhill:
+    $$\bigvee_{(na\neq nb)\ \in \texttt{ nacs}^2 \ } \bigvee_{i=1}^4 \left((P_{na}^i \wedge M_{na}^\text{caballo}) \wedge (P_{nb}^{i+1} \wedge T_{nb}^\text{Dunhill}) \vee (P_{na}^i \wedge T_{na}^\text{Dunhill}) \wedge (P_{nb}^{i+1} \wedge M_{nb}^\text{caballo})\right)$$
+\end{enumerate}
+
+Para modelar que el alemán tiene un pez ssi $\Sigma$ es satisfacible lo que hay que hacer es agregar todas las fórmulas de las pistas a $\Sigma$, y agregar la negación de lo pedido, esto es, el alemán no tiene un pez, de modo que como se deduce de las fórmulas que el aleman tiene un pez, al aplicar resolución sobre el conjunto se llegaría a una inconsistencia, siendo $\Sigma$ insatisfacible. Notar que no basta solo con las pistas ya que es necesario agregar las fórmulas que dan sentido a este \textit{mundo}, lo que fue explicado antes de desarrollar las pistas.
+
+\item Para resolver el problema, como se mencionó anteriormente bastaría con agregar todas las pistas a $\Sigma$ y aplicar resolución, de modo de obtener más información hasta eventualmente obtener toda la información.
+
+Voy a generar 2 nuevos grupos de pistas, en realidad van a ser 8 pistas, pero dentro de los grupos la pista es esencialmente la misma, con sub o superíndices distintos.
+
+Si se toma una de las fórmulas de ejemplo, que el noruego vive en la primera casa: $P_\text{noruego}^1$, notemos que por las formulas que dan sentido, existe en particular la formula en CNF: $\neg P_\text{noruego}^1 \vee \neg P_\text{noruego}^2$, que es la que dice que o bien el noruego no vive en la primera casa o no vive en la otra, pero no puede no vivir en ambas, y así para cada número distinto de 1.
+
+Aplicando resolución se puede obtener que $\neg P_\text{noruego}^i$ con $i = 2,3,4,5$. Con eso se obtienen nuevas pistas, en este caso que el noruego no vive en la casa 2, 3, 4, 5.
+
+Ahora por otro lado si por ejemplo se toma $B_\text{danés}^\text{té}$, la pista de que el danés toma té, se tiene también la fórmula de que nadie más que él toma té, esto es: $\neg B_\text{danés}^\text{té} \vee \neg B_\text{aleman}^\text{té}$, y así para cada nacionalidad.
+
+Así, si se aplica resolución, se obtiene que $\neg B_\text{aleman}^\text{té}$, esto es, que el alemán no toma té, y así para las otras nacionalidades.
+\end{enumerate}
+
+\end{document}
