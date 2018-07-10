@@ -1,0 +1,133 @@
+\documentclass[letterpaper,10pt]{article}
+\setlength{\parindent}{0pt}
+\usepackage[utf8]{inputenc}
+
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage{enumerate}
+\usepackage{amssymb,amsmath}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usepackage[shortlabels]{enumitem}
+
+
+
+\begin{document}
+
+\small
+\textsc{Pontificia Universidad Católica de Chile}\\
+\textsc{Escuela de Ingeniería}\\
+\textsc{Departamento de Ciencia de la Computación}\\
+\textsc{Primer Semestre de 2018}
+
+\large
+\begin{center}
+\textbf{IIC2213 - Lógica para ciencia de la Computación}\\
+Tarea 3 - Raimundo Herrera (rjherrera@uc.cl)
+\end{center}
+
+\normalsize
+\textbf{Problema 1}
+
+
+\begin{enumerate}
+    \item Para mostrar que hay conjuntos que son axiomatizables pero no elementales, hay que considerar que $modelos(\varphi)$ corresponde al conjunto de las estructuras en $C$ tal que cada estructura satisface a $\varphi$.
+
+    Para mostrar que existen los conjuntos axiomatizables pero no elementales, es posible notar que si un conjunto de estructuras es axiomatizable por un conjunto infinito de axiomas, entonces si bien es axiomatizable, para que fuera elemental habría que poder construir una fórmula $\varphi$ tal que los $modelos(\varphi)$ fueran iguales al conjunto de estructuras. Sin embargo, esto de inmediato es posible notar que no es necesariamente posible, ya que para que lo fuera, se tendría que poder expresar lo anterior en una sola fórmula, y no siempre es posible eso porque en ciertos casos dicha fórmula sería infinita.
+
+    De hecho, si fuera posible, se encontraría una contradicción con el teorema de la compacidad. Esto porque $C$ puede ser visto como una propiedad, de modo que lo que habría que probar para que $C$ fuera elemental, a partir de que tiene una cantidad infinita de axiomas, es análogo a mostrar que es una propiedad definible por una oración.
+
+    El ejemplo visto en clases, actividad 12, nos señala que asumiendo que se puede determinar dicha oración $\varphi$ se llega a una contradicción, esto es, si se toma (1) un conjunto de estructuras infinito como lo es el de todas las estructuras en un vocabulario tal que su dominio es finito, (2) $\psi_n$ como la fórmula que señala que en el dominio existen $n$ elementos distintos, y (3) $\Gamma$ como el conjunto de todos los $\psi_n$ tal que $n > 0$, se puede concluir que todo subconjunto finito de $\Gamma \cup \varphi$ es satisfacible sin embargo, el conjunto infinito no lo es, lo que contradice la compacidad.
+
+    Por lo anterior, el análogo es inmediato, si consideramos el conjunto infinito de estructuras como arriba, entonces es cierto que existen conjuntos que son axiomatizables infinitamente, pero no son elementales, pues habría que construir una fórmula infinita.
+
+    Una intuición para lo anterior es que una sola fórmula finita puede no ser capaz de capturar todas las propiedades del conjunto de estructuras si este es finito. Ya que al decir $C=modelos(\varphi)$ se dice implícitamente que hay similaridad entre las estructuras de $C$ que puede ser descrita adecuadamente por $\varphi$.
+
+    \item Primero hay que demostrar que si un conjunto es elemental, entonces es co-elemental.
+
+    Si $C$ es elemental, entonces existe $\varphi$ tal que $modelos(\varphi)$. Como el complemento de $C$, llamemoslo $\bar{C}$ no comparte ningún elemento con $C$, ya que son disjuntos, ocurre que para toda estructura $\mathfrak{A}$ se tiene que $\mathfrak{A}$ pertenece a $\bar{C}$ si y solo si $\mathfrak{A}$ no pertenece a $C$. De este modo también, de lo anterior se tiene que si $\mathfrak{A}$ no pertenece a $C$, entonces $\mathfrak{A} \not\models \varphi$. Si sucede lo último se puede deducir que $\mathfrak{A} \models \neg\varphi$, por lo que finalmente se deduce que $\bar{C} = modelos(\neg\varphi)$, por lo que existe un $\psi$, en particular $\neg\varphi$ tal que $\bar{C} = modelos(\psi)$.
+
+    Finalmente, como existe dicha oración, a partir de que $C$ era elemental, se tiene que también es co-elemental.
+
+    Para el lado contrario hay que demostrar que si un conjunto es co-elemental, entonces es elemental, pero dicha demostración es inmediata y análoga a la anterior, solo basta con cambiar cual es el complemento de cual, ya que es simétrico.
+
+    \item (*) Si ambos son axiomatizables, entonces existe $\Sigma$ tal que $modelos(\Sigma) = C$ y $\Pi$ tal que $modelos(\Pi) = \bar{C}$. Si eso ocurre, entonces como $C$ y $\bar{C}$ son disjuntos, la unión de ambos conjuntos no es satisfacible, porque no hay estructura que satisfaga a ambos a la vez.
+
+    Por compacidad si $\Sigma$ y $\Pi$ son satisfacibles, entonces en particular todo subconjunto finito de ellos lo es también. Así, nuevamente, se prerseva la insatisfacibilidad de la unión de dichos subconjuntos, esto es, para $\Sigma^* \subseteq \Sigma$ y $\Pi^* \subseteq \Pi$, se tiene que $\Sigma^* \cup \Pi^*$ es insatisfacible.
+
+    Sea $C'=modelos(\Sigma^*)$, se tiene que $C \subseteq C'$ ya que como $modelos$ hace referencia a los mundos posibles, si $\Sigma^*$ es un subconjunto del original, entonces $C'$ es potencialmente más grande porque hay menos restricciones.
+
+    Si suponemos que $C'\neq C$, sea $B \in C' \backslash C$. Con esa construcción se tiene que (1) $B \in C'$ y (2) $B \in \bar{C}$. Si esto es así, entonces se tiene que $B \in (modelos(\Sigma^*) \cap modelos(\Pi))$, ya que $B$ pertenece a los conjuntos como se señala en (1) y en (2), de modo que pertenece a los $modelos$ también. Por propiedad de $modelos$ se tiene que $modelos(X \cup Y) = modelos(X) \cap modelos(Y)$, por lo que se tiene también que $B \in modelos(\Sigma^* \cup \Pi)$.
+
+    Si se tiene lo último entonces se afirma que $\Sigma^* \cup \Pi$ es satisfacible, de lo que inmediatamente se deduce que $\Sigma^* \cup \Pi^*$ es satisfacible ya que $\Pi^* \subseteq \Pi$, lo que contradice el supuesto $C'\neq C$.
+
+    Dada la contradicción anterior, entonces se tiene que dar que $C' = C$, con lo que $C=modelos(\Sigma^*)$, y como $\Sigma^*$ es finito, entonces se puede construir una oración $\nu$ correspondiente a la conjunción de todos los elementos de $\Sigma^*$, con lo que $modelos(\Sigma*) = modelos(\nu)$, y por ende, por transitividad de la igualdad, $C=modelos(\nu)$, con lo que $C$ es elemental.
+
+\end{enumerate}
+
+
+\textbf{Problema 2}
+
+\begin{enumerate}
+    \item (*) el conjunto de grafos 2-colorables es axiomatizable pero no elemental. Para mostrar que es axiomatizable, en primer lugar mostraré intuitivamente que 2-colorabilidad es equivalente a que un grafo no tiene ciclos de largo impar. Basado en eso mostraré que si un grafo no tiene ciclos de largo impar, entonces es axiomatizable. Finalmente mostraré que no es elemental.
+
+    Si un grafo es 2-coloreable, entonces no tiene ciclos de largo impar. Es fácil ver esto porque si tomamos un grafo 2-coloreable, con el nodo $v_0$ de color $a$ y $v_1$ de color $b$, se tiene que por la propiedad, todos los nodos de subíndice par son de color $a$ y los de impar de color $b$. Un ciclo impar de largo $2n + 1$ es de la forma $v_0 = v_{2n+1}$, sin embargo, $v_0$ es nodo par por lo que estaba coloreado con $a$ y $v_{2n+1}$ es impar por lo tanto estaba coloreado $b$, con lo que se llega a contradicción con 2-coloreabilidad.
+
+    Por la dirección opuesta, si el grafo no tiene ciclos impares, entonces es 2-coloreable. Definamos la noción de $d(x,y)$ como la menor distancia entre los nodos $x$ e $y$. Para cada vértice $v$ asumiendo sin pérdida de generalidad que $v_0$ es de color $a$, pintemos de color $a$ a cada $v$ tal que $d(v_0, v)$ sea par, y de color $b$ en caso contrario. Si esque dos nodos de colores iguales estuvieran conectados, entonces habría un ciclo de tamaño impar, ya que, si tomamos por ejemplo el caso de que hubieran dos nodos de color $a$ conectados, se podría ir del segundo de los dos nodos por un camino de largo 1 mayor al primer nodo, y ese camino sería impar, contradiciendo el supuesto de que se pintaban de la otra manera.
+
+    Con esto se prueba que un grafo es 2-coloreable $\leftrightarrow$ el grafo no tiene ciclos de largo impar.
+
+    Ahora a lo que vinimos, que un grafo no tenga dichos ciclos implica que para todo $n$ natural se tiene que el grafo $G$ no tiene ciclos de largo $2n+1$. Suponiendo que la propiedad de que un grafo no tiene un ciclo de largo $k$ puede ser representada como una oración $\varphi_k$ con $k$ natural. Entonces la 2-coloreabilidad puede ser definida como el siguiente conjunto:
+    $$\psi_n = \{\varphi_{2n+1} \ | \ n \in \mathbb{N}\}$$
+
+    Se construirá entonces dicha oración, pero antes para poder hacerlo, sea $p_n(x,y)$ la fórmula que muestra si existe un camino de largo $n$ entre los nodos $x$ e $y$, notar que esta fórmula puede ser contruida con la única relacion del vocabulario, $E$. Ahora, un caso particular es $p_n(x,x)$, que es un ciclo. Por lo que la condición de que un grafo tenga un ciclo de largo $n$ puede ser escrita como:
+    $$\exists x p_n(x, x)$$
+
+    Por lo que finalmente la propiedad se puede escribir como el conjunto de oraciones:
+    $$\{\neg\psi_{2n+1} \ | \ n \in \mathbb{N}\}$$
+
+    Por lo que es axiomatizable.
+
+    Falta demostrar que no es elemental, por contradicción, supongamos que sí lo es. Si lo es entonces existe $\varphi$ tal que $C=modelos(\varphi)$, con $C$ el conjunto de los grafos 2-coloreables. Ahora, como nota necesaria, es fácil ver que si un conjunto es elemental entonces es axiomatizable, de hecho para toda oración se puede construir $C=modelos(\{\varphi\})$. Continuando con lo anterior, se desprende que $C=modelos(\Sigma)$, donde
+    $$\Sigma = \{\neg\psi_{2n+1} \ | \ n \in \mathbb{N}\}$$
+    Con ese caso se puede observar que $\Pi = \Sigma \cup \{\neg\varphi\}$ es insatisfacible, puesto que dentro de $\Sigma$ está $\varphi$. Ahora, por compacidad se tiene que si dicho conjunto es insatisfacible, hay un subconjunto finito $\Pi^*$ que también lo es. En particular, como $\Pi^*$ es finito, entonces existe un $k \in \mathbb{N}$ tal que
+    $$\Pi^* \subseteq \{\neg\psi_{2n+1} \ | \ n \leq k\} \cup \{\neg\varphi\}$$
+
+    Sin embargo, se puede armar un grafo que tenga un ciclo de largo lo suficientemente mayor a $k$, esto es, $> 2k+1$ e impar, tal que si satisface a $\Pi^*$, por lo que se contradice con que sea insatisfacible. Con esto, el conjunto de los grafos 2-coloreable no es elemental.
+
+    Por lo que se mostró que no es elemental y si es axiomatizable.
+
+    \item Para este caso mostraré que es axiomatizable y no elemental
+
+    Si utilizamos la misma noción de $p_n(x,y)$ como la fórmula que muestra si existe un camino de largo $n$ entre los nodos $x$ e $y$, definir una noción de excentricidad como:
+    $$ec_n = \exists x \exists y \ p_n(x, y)$$
+    Donde $ec_n$ representa a que para algún $x$ e $y$ existe un camino de largo $n$ entre ambos nodos. Ahora podemos definir el siguiente conjunto para $n$ natural:
+    $$\{\neg ec_n \ | \ n > 3\}$$
+
+    Ese conjunto infinito entonces axiomatiza al conjunto de todos los grafos con excentricidad de a lo más 3.
+
+    La demostración de que no es elemental es similar a la anterior, donde se contradice compacidad de la misma manera usando la noción de que el subconjunto finito es insatisfacible, y que para el conjunto que verifica que la excentricidad sea mayor a cierto $n$ fijo se vuelve trivialmente satisfacible, lo que lo contradice.
+
+    \item Para este caso mostraré que es co-axiomatizable y no elemental
+
+    Si usamos la idea de co-axiomatizable, podemos considerar el problema complementario de todos los grafos donde la excentricidad es infinita. Para esto usando la noción de $ec_n$, y considerando que si la excentricidad es infinita, entonces existe un camino de cada largo natural, se puede definir el siguiente conjunto:
+    $$\{ec_n \ | \ n \in \mathbb{N}\}$$
+
+    El cual lo que hace es exigir que existan caminos de largo $n$ para todo $n$ natural.
+
+    La demostración de no elemental es similar a las anteriores, ya que fijando el $n$ la insatisfacibilidad que se consiguió construyendo ese sigma, se va si se logra fijar el $n$ a un valor $k$, contradiciendo compacidad y mostrando por contradicción que el problema no es elemental
+
+
+\end{enumerate}
+
+
+\textbf{Problema 3}
+
+    $\blacksquare$\\\\
+
+
+\textbf{* Nota: algunas demostraciones (las marcadas con *) fueron basadas en la lectura de los apuntes de clases del curso COMP409 de Rice University, disponible en el link \url{https://www.cs.rice.edu/~vardi/comp409/lec22.pdf}}
+
+\end{document}
